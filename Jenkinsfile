@@ -7,12 +7,10 @@ pipeline {
                     image 'nginx:1.20.1'
                 }
             }
-            steps{
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'yarn install --production'
-                    sh 'npm install'
+            steps {
+                echo 'Keep going to Reinvent Yourself'
+                sh 'echo Integrating Jenkins Pipeline with GitHub Webhook using Jenkinsfile'
                 }   
             }
         }
     }
-}
