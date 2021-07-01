@@ -1,39 +1,34 @@
 pipeline {
     agent { label "master" }
     environment {
-        ECR_REGISTRY = "073786940416.dkr.ecr.us-east-1.amazonaws.com"
+        ECR_REGISTRY = "073786940416.dkr.ecr.us-east-1.amazonaws.com.dkr.ecr.us-east-1.amazonaws.com"
         APP_REPO_NAME= "gsy/task-todo"
         PATH="/usr/local/bin/:${env.PATH}"
     }
     stages {
-        stage("Run app on Docker"){
-            agent{
-                docker{
-                    image 'nginx'
-                }
-            }
-            steps {
-                echo 'Clarusway_Way to Reinvent Yourself'
-                sh 'echo Integrating Jenkins Pipeline with GitHub Webhook using Jenkinsfile'
-                }   
-            }
-        }
-        stages('Build Docker Image') {
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build --force-rm -t "$ECR_REGISTRY/$APP_REPO_NAME:latest" .'
+                sh 'docker rmi $(docker images -f "dangling=true" -q)'
                 sh 'docker image ls'
             }
         }
-        stages('Push Image to ECR Repo') {
+        stage('Push Image to ECR Repo') {
             steps {
                 sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "$ECR_REGISTRY"'
                 sh 'docker push "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
             }
         }
-    }
-    post {
-        always {
-            echo 'Deleting all local images'
-            sh 'docker image prune -af'
+        stage('Deploy') {
+            steps {
+                sh 'docker ps -q --filter "name=$APP_REPO_NAME" | grep -q . && docker stop $APP_REPO_NAME && docker rm -fv $APP_REPO_NAME'
+                sh 'docker run --name $APP_REPO_NAME -dp 80:80 "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
+            }
         }
     }
+    post {
+        success {
+            echo 'success!'
+        }
+    }
+}
