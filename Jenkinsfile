@@ -8,11 +8,9 @@ pipeline {
                 }
             }
             steps{
-                withEnv(["HOME=${env.WORKSPACE}"]) {
-                    sh 'yarn install --production'
-                    sh 'npm install'
+                echo 'Clarusway_Way to Reinvent Yourself'
+                sh 'echo Integrating Jenkins Pipeline with GitHub Webhook using Jenkinsfile'
                 }   
             }
         }
     }
-}
