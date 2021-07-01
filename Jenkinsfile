@@ -4,7 +4,7 @@ pipeline {
         stage("Run app on Docker"){
             agent{
                 docker{
-                    image 'nginx:latest'
+                    image 'node:12-alpine'
                 }
             }
             steps{
