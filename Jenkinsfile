@@ -20,8 +20,9 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'docker ps -q --filter "name=$APP_REPO_NAME" | grep -q . && docker stop $APP_REPO_NAME && docker rm -fv $APP_REPO_NAME'
-                sh 'docker run --name $APP_REPO_NAME -dp 80:80 "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
+                sh 'aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin "$ECR_REGISTRY"'
+                sh 'docker pull "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
+                sh 'docker run --name todo -dp 80:3000 "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
             }
         }
     }
