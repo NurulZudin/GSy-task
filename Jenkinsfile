@@ -4,13 +4,15 @@ pipeline {
         stage("Run app on Docker"){
             agent{
                 docker{
-                    image 'nginx:1.20.1'
+                    image 'nginx:latest'
                 }
             }
-            steps {
-                echo 'Keep going to Reinvent Yourself'
-                sh 'echo Integrating Jenkins Pipeline with GitHub Webhook using Jenkinsfile'
+            steps{
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'yarn install --production'
+                    sh 'npm install'
                 }   
             }
         }
     }
+}
