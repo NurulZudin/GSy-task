@@ -9,7 +9,6 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 sh 'docker build --force-rm -t "$ECR_REGISTRY/$APP_REPO_NAME:latest" .'
-                sh 'docker rmi $(docker images -f "dangling=true" -q) --force'
                 sh 'docker image ls'
             }
         }
@@ -19,12 +18,7 @@ pipeline {
                 sh 'docker push "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
             }
         }
-        stage('Deploy') {
-            steps {
-                sh 'docker ps -q --filter "name=$APP_REPO_NAME" | grep -q . && docker stop $APP_REPO_NAME && docker rm -fv $APP_REPO_NAME'
-                sh 'docker run --name $APP_REPO_NAME -dp 80:80 "$ECR_REGISTRY/$APP_REPO_NAME:latest"'
-            }
-        }
+        
     }
     post {
         success {
