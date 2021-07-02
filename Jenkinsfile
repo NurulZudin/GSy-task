@@ -1,7 +1,7 @@
 pipeline {
     agent { label "master" }
     environment {
-        ECR_REGISTRY = ""073786940416.dkr.ecr.us-east-1.amazonaws.com"
+        ECR_REGISTRY = "073786940416.dkr.ecr.us-east-1.amazonaws.com"
         APP_REPO_NAME= "clarusway/to-do-app"
         PATH="/usr/local/bin/:${env.PATH}"
     }
