@@ -165,7 +165,7 @@ git push
 ```
 
 
-### Step 5 Add Deploy stage 
+Add Deploy stage 
 
 
 - Change a `Jenkinsfile` within the `GSy-task` repo and add Deploy stage like below. 
