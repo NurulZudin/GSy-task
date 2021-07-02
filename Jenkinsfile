@@ -38,5 +38,3 @@ pipeline {
             echo 'success!'
         }
     }
-} 
-    }
