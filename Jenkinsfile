@@ -6,7 +6,7 @@ pipeline {
         PATH="/usr/local/bin/:${env.PATH}"
     }
     stages {
-        stage("Run app on Docker"){
+        stages("Run app on Docker"){
             agent{
                 docker{
                     image 'nginx:latest'
