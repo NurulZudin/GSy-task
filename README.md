@@ -5,6 +5,14 @@
 run on terminal,
 "docker build .
 
+- Get the initial administrative password.
+
+```bash
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+```
+- Open your browser, get your ec2 instance Public IPv4 DNS and paste it at address bar with 8080. 
+"http://[ec2-public-dns-name]:8080"
+
  Jenkins Server is configured with admin user `admin` and password `Admin12345`.
 
 - Open your Jenkins dashboard and navigate to `Manage Jenkins` >> `Manage Plugins` >> `Available` tab
