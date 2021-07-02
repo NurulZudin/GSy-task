@@ -3,6 +3,7 @@ pipeline {
     environment {
         ECR_REGISTRY = "073786940416.ecr.us-east-1.amazonaws.com"
         APP_REPO_NAME= "task-dr-gsy"
+        PATH="/usr/local/bin/:${env.PATH}"
     }
     stages {
         stage('Build Docker Image') {
