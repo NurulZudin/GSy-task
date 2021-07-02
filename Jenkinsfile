@@ -5,6 +5,7 @@ pipeline {
         APP_REPO_NAME= "task-dr-gsy"
         PATH="/usr/local/bin/:${env.PATH}"
     }
+    stages {
     stage('Build Docker Image') {
             steps {
                 sh 'docker build --force-rm -t "$ECR_REGISTRY/$APP_REPO_NAME:latest" .'
@@ -22,4 +23,5 @@ pipeline {
         success {
             echo 'success!'
         }
+    }
 }
