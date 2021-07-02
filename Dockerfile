@@ -1,4 +1,5 @@
-FROM nginx:1.20.1
-WORKDIR /usr/share/nginx/html
+FROM nginx:latest
+ADD /usr/share/nginx/html
+RUN chmod +r /usr/share/nginx/html/index.html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
