@@ -48,4 +48,3 @@ pipeline {
             sh 'docker image prune -af'
         }
     }
-}
