@@ -2,10 +2,21 @@
 
 - Launch a pre-configured from the AMI of (ami-08857fc3e51ff205e) running on Amazon Linux 2, allowing SSH (port 22) and HTTP (ports 80, 8080) connections using the Cloudformation Template.
 
-run on terminal,
-"docker build .
+Dockerfile are ready.
 
-- Get the initial administrative password.
+ Run the `nginx` container at the detached mod, name the container as `nginx-default`, and open <public-ip> on browser and show the nginx default page.
+
+```bash
+docker buil
+docker run -d --name nginx-default -p 80:80  nginx
+```
+check on browser to see nginx page.
+
+```text
+http://<public-ip>:80
+```
+
+- Get the initial administrative password for Jenkins page.
 
 ```bash
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
